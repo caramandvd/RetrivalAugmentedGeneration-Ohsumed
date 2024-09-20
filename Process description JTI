@@ -1,0 +1,20 @@
+Here is a step by step project description of the RAG 
+
+1. EDA on the provided dataset (Dataset Novelty assesment)
+    Few things stood out: -> the length of the Prompts is way to big (over 3000 words), embedding models usually support 512 tokens, therfore the prompts should be broken down in batches
+                          -> some prompts are in JAP 
+2. Batching the prompts:
+    -create snippets of 250 words
+    -create a duplicate column and shift -1
+    -we want to have overlapping in order for the sentences to not lose context and corelation between batches of the same Patent
+
+3. Create the embedding function using S-BERT (go-to model for embedding)
+    - consider each word of the batch as a token
+
+4. Create the search function for the vector store
+    -embedd the new prompt
+    -receive the Title of the matching patent and the cosine similarity score
+
+5. Create the LLM Validation Function
+INPUT: The new proposed patent, the result of the Search_Function and the prompt
+output: LLM's reasoning
